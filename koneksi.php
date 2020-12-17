@@ -2,7 +2,7 @@
 $host="localhost"; 
 $user="root"; 
 $password=""; 
-$database="pweb"; 
+$database="uploadimage"; 
 $koneksi=mysqli_connect($host,$user,$password,$database); 
 
 
