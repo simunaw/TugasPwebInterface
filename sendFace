@@ -1,9 +1,16 @@
 <?php
 
+include ('koneksi.php')
+
 $base64_string = $_POST['image'];
 $username = $_POST['idUser'];
 $password = $_POST["password"];
-$image_name = "D:\\xampp\\htdocs\\uploadFace\\".$username;
+$sql = "SELECT idUser, password, FROM user WHERE idUser = '".$idUser."'AND password ='".$password."'";
+$query = mysql_query($koneksi, $sql);
+$cek = mysql_num_rows($query);
+
+if($cek >0){
+$image_name = "C:\\xampp\\htdocs\\uploadFace\\".$username;
 
 if (!file_exists($image_name)) {
  if (!mkdir($image_name)) {
@@ -31,5 +38,12 @@ $fi = new FilesystemIterator($image_name, FilesystemIterator::SKIP_DOTS);
 $fileCount = iterator_count($fi);
 $m = array('msg' => "Berhasil Mengirim"." total(".$fileCount.")");
 echo json_encode($m);
+
+$sql = "insert into log (username) values('$username')";
+    $query = mysqli_query($conn, $sql);
+    }
+    else{
+        echo "Wrong Username or Password";
+    }
 
 ?>
